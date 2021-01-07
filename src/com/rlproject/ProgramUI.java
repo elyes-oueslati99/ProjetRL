@@ -29,8 +29,10 @@ public class ProgramUI extends JFrame implements MouseListener {
 
     ArrayList<AccessPoint> APs = new ArrayList<>();
     AccessPoint ap;
-
-
+    ArrayList<Obstacle> obs_list = new ArrayList<Obstacle>();
+    Obstacle obs;
+    ArrayList<User> user_list =new ArrayList<User>();
+    User user;
 
     ProgramUI(String s){
         super(s);
@@ -76,6 +78,11 @@ public class ProgramUI extends JFrame implements MouseListener {
                 String s = JOptionPane.showInputDialog("Entree les coordonnees de l'utilisateur x-y");
                 x= Integer.parseInt(s.substring(0,s.indexOf('-')));
                 y= Integer.parseInt(s.substring(s.indexOf('-')+1));
+                user = new User(x, y);
+                user.drawUser(ga);
+                ga.drawString("user", x, y);
+                user_list.add(user);
+
                 if(APs.size()!=0){
                     userLabel.setText("user at ("+x+","+y+") is closest to AP"+AccessPoint.calculateAP(x,y,APs));
                 } else {
@@ -134,7 +141,10 @@ public class ProgramUI extends JFrame implements MouseListener {
        // }else if(userMode){
 
         }else if(obstacleMode){
-
+         obs = new Obstacle(x, y);
+         obs.drawObstacle(ga);
+         ga.drawString("obstacle", x, y);
+         obs_list.add(obs);
         }
 
     }
